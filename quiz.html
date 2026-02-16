@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>D00d Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+    }
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      animation: float 4s linear infinite;
+    }
+    @keyframes float {
+      to { transform: translateY(-120vh); }
+    }
+  </style>
+</head>
+<body>
+
+<h2 id="question"></h2>
+
+<button onclick="answer(true)">Yes</button>
+<button onclick="answer(false)">No</button>
+
+<script>
+const questions = [
+  "Do you enjoy chaos?",
+  "Do you overthink memes?",
+  "Do you like being different?",
+  "Do you scroll X at 3am?",
+  "Would you survive as a D00d?"
+];
+
+let index = 0;
+let score = 0;
+
+const qEl = document.getElementById("question");
+qEl.innerText = questions[index];
+
+function answer(yes) {
+  if (yes) score++;
+  index++;
+
+  if (index < questions.length) {
+    qEl.innerText = questions[index];
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.body.innerHTML = "";
+
+  let img = document.createElement("img");
+
+  if (score <= 1) img.src = "images/result-1.jpg";
+  else if (score <= 3) img.src = "images/result-2.jpg";
+  else img.src = "images/result-3.jpg";
+
+  img.style.width = "90%";
+  document.body.appendChild(img);
+
+  for (let i = 0; i < 15; i++) {
+    let b = document.createElement("div");
+    b.className = "balloon";
+    b.innerText = "🎈";
+    b.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(b);
+  }
+
+  let btn = document.createElement("button");
+  btn.innerText = "Back Home";
+  btn.onclick = () => location.href = "index.html";
+  document.body.appendChild(btn);
+}
+</script>
+
+</body>
+</html>
