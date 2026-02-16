@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>D00ds Playground</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  font-family: Inter, sans-serif;
+  background: linear-gradient(180deg,#020617,#020617,#0f172a);
+  color: white;
+}
+.glass {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.12);
+}
+</style>
+</head>
+
+<body class="px-4">
+
+<section class="min-h-screen flex flex-col justify-center text-center">
+  <h1 class="text-5xl font-extrabold mb-4">D00ds Playground</h1>
+  <p class="text-gray-300 mb-8">No roadmap. Just vibes.</p>
+  <button onclick="scrollIntoView()"
+    class="bg-white text-black py-4 rounded-full font-semibold text-lg">
+    Enter
+  </button>
+</section>
+
+<section id="playground" class="space-y-16 pb-24">
+
+<div class="glass rounded-2xl p-6 text-center">
+  <h2 class="text-2xl font-bold mb-4">Your D00d</h2>
+  <div id="avatar" class="text-6xl mb-2">😎</div>
+  <p id="name" class="font-semibold"></p>
+  <p id="lore" class="text-gray-300 mb-4"></p>
+  <button onclick="generate()"
+    class="bg-cyan-400 text-black py-3 w-full rounded-full font-semibold">
+    Generate
+  </button>
+</div>
+
+<div class="glass rounded-2xl p-6 text-center">
+  <h2 class="text-2xl font-bold mb-4">Which D00d?</h2>
+  <button onclick="quiz()"
+    class="bg-purple-400 text-black py-3 w-full rounded-full font-semibold">
+    Take Quiz
+  </button>
+  <p id="quiz" class="mt-3 text-gray-300"></p>
+</div>
+
+<div class="glass rounded-2xl p-6 text-center">
+  <h2 class="text-2xl font-bold mb-4">Lore Machine</h2>
+  <button onclick="lore()"
+    class="bg-emerald-400 text-black py-3 w-full rounded-full font-semibold">
+    Generate Lore
+  </button>
+  <p id="lore2" class="mt-3 text-gray-300"></p>
+</div>
+
+<div class="glass rounded-2xl p-6 text-center">
+  <h2 class="text-2xl font-bold mb-4">Vibe Radio</h2>
+  <div class="flex gap-3">
+    <button class="flex-1 bg-white/20 py-2 rounded-full">Chill</button>
+    <button class="flex-1 bg-white/20 py-2 rounded-full">Chaos</button>
+    <button class="flex-1 bg-white/20 py-2 rounded-full">Midnight</button>
+  </div>
+</div>
+
+<div class="glass rounded-2xl p-6 text-center">
+  <h2 class="text-2xl font-bold mb-4">Mint Countdown</h2>
+  <p id="timer" class="text-3xl font-mono"></p>
+</div>
+
+</section>
+
+<footer class="text-center text-gray-400 pb-10">
+  Built by @yourhandle for the D00ds community
+</footer>
+
+<script>
+const names=["Zen D00d","Chaos D00d","Void D00d","Midnight D00d"];
+const lores=[
+"Minted during a gas war.",
+"Never checked the roadmap.",
+"Accidentally early.",
+"Vibes > utility."
+];
+const emojis=["😎","🤯","👁️","🌑"];
+
+function generate(){
+let i=Math.floor(Math.random()*names.length);
+document.getElementById("avatar").innerText=emojis[i];
+document.getElementById("name").innerText=names[i];
+document.getElementById("lore").innerText=lores[i];
+}
+
+function quiz(){
+document.getElementById("quiz").innerText=
+"You are a Chaos D00d. You mint first and think later.";
+}
+
+function lore(){
+document.getElementById("lore2").innerText=
+lores[Math.floor(Math.random()*lores.length)];
+}
+
+function scrollIntoView(){
+document.getElementById("playground")
+.scrollIntoView({behavior:"smooth"});
+}
+
+const mint=new Date("2026-03-01").getTime();
+setInterval(()=>{
+let d=mint-new Date().getTime();
+if(d<0)return;
+let h=Math.floor(d/(1000*60*60));
+document.getElementById("timer").innerText=h+"h";
+},1000);
+</script>
+
+</body>
+</html>
