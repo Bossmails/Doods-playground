@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>D00d Meme</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h2>Make a D00d Meme</h2>
+
+<select id="template">
+  <option value="images/meme-1.jpg">Template 1</option>
+  <option value="images/meme-2.jpg">Template 2</option>
+</select>
+
+<br><br>
+
+<input id="topText" placeholder="Top text"><br>
+<input id="bottomText" placeholder="Bottom text"><br>
+
+<button onclick="generate()">Generate</button>
+
+<br><br>
+<canvas id="canvas" width="300"></canvas>
+
+<script>
+function generate() {
+  const img = new Image();
+  img.src = document.getElementById("template").value;
+
+  img.onload = () => {
+    const c = document.getElementById("canvas");
+    const ctx = c.getContext("2d");
+
+    c.width = img.width;
+    c.height = img.height;
+
+    ctx.drawImage(img, 0, 0);
+    ctx.font = "40px sans-serif";
+    ctx.fillStyle = "white";
+    ctx.fillText(topText.value, 20, 50);
+    ctx.fillText(bottomText.value, 20, c.height - 20);
+  };
+}
+</script>
+
+</body>
+</html>
