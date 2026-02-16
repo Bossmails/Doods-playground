@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>D00ds Playground</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: Inter, sans-serif;
+  background: linear-gradient(180deg,#020617,#0f172a);
+  color:white;
+}
+.glass {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.12);
+}
+</style>
+</head>
+
+<body class="px-4 py-8 max-w-6xl mx-auto">
+
+<h1 class="text-4xl font-extrabold mb-10 text-center">D00ds Playground</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+<!-- DOOD GENERATOR -->
+<div class="glass rounded-2xl p-6">
+  <h2 class="text-2xl font-bold mb-4">D00d Generator</h2>
+
+  <input type="file" id="upload" accept="image/*"
+         class="mb-4 w-full text-sm">
+
+  <canvas id="canvas" width="300" height="300"
+          class="rounded-xl bg-black mb-4 w-full"></canvas>
+
+  <button id="generate"
+    class="bg-cyan-400 text-black py-3 w-full rounded-full font-semibold">
+    Generate D00d
+  </button>
+
+  <p class="text-gray-400 text-sm mt-3">
+    Upload your Twitter PFP or any image
+  </p>
+</div>
+
+<!-- LORE -->
+<div class="glass rounded-2xl p-6">
+  <h2 class="text-2xl font-bold mb-4">Lore Machine</h2>
+  <button id="loreBtn"
+    class="bg-emerald-400 text-black py-3 w-full rounded-full font-semibold">
+    Generate Lore
+  </button>
+  <p id="lore" class="mt-4 text-gray-300"></p>
+</div>
+
+</div>
+
+<footer class="text-center text-gray-400 mt-16">
+  Built by @yourhandle for the D00ds community
+</footer>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const upload = document.getElementById("upload");
+
+let img = new Image();
+
+upload.onchange = e => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+};
+
+document.getElementById("generate").onclick = () => {
+  ctx.clearRect(0,0,300,300);
+  ctx.drawImage(img,0,0,300,300);
+
+  // DOOD EFFECTS
+  ctx.globalCompositeOperation = "overlay";
+  ctx.fillStyle = "rgba(255,255,255,0.08)";
+  ctx.fillRect(0,0,300,300);
+
+  ctx.globalCompositeOperation = "source-over";
+  ctx.filter = "contrast(130%) saturate(120%) grayscale(10%)";
+  ctx.drawImage(canvas,0,0);
+};
+
+const lores = [
+  "This D00d was born during a gas war.",
+  "Never read the roadmap. Never will.",
+  "Minted by accident. Stayed for vibes.",
+  "Survived three bear markets."
+];
+
+document.getElementById("loreBtn").onclick = () => {
+  document.getElementById("lore").innerText =
+    lores[Math.floor(Math.random()*lores.length)];
+};
+</script>
+
+</body>
+</html>
